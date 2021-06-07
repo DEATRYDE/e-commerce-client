@@ -2,13 +2,15 @@ import {
   SET_CURRENT_USER,
   SUCCESSFUL_REGISTER,
   ERRORS,
+  FAILURE_REGISTER,
+  AUTH_ERROR,
 } from "../actions/types";
-import { isEmpty } from "lodash";
 
 const initialState = {
   isAutheticated: false,
   user: {},
   token: localStorage.getItem("token"),
+  errors: [],
 };
 
 export default function authReducer(state = initialState, action) {
@@ -17,7 +19,7 @@ export default function authReducer(state = initialState, action) {
     case SET_CURRENT_USER:
       return {
         ...state,
-        isAutheticated: !isEmpty(payload),
+        isAutheticated: true,
         user: payload,
       };
     case SUCCESSFUL_REGISTER:
@@ -27,12 +29,19 @@ export default function authReducer(state = initialState, action) {
         ...payload,
         isAutheticated: true,
       };
-    case ERRORS:
+    case FAILURE_REGISTER:
+    case AUTH_ERROR:
       localStorage.removeItem("token");
       return {
         ...state,
         token: null,
         isAutheticated: false,
+      };
+    case ERRORS:
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        errors: payload,
       };
     default:
       return state;
