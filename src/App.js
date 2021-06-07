@@ -1,13 +1,21 @@
 import React from "react";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/general/NavBar";
+import Background from "./components/landing/background";
+import store from "./store";
 
 function App() {
   return (
-    <div className="App">
-      <NavBar />
-      <h1>E-commerce Front End</h1>
-    </div>
+    <Provider store={store}>
+      <Router>
+        <div className="App">
+          <NavBar />
+          <Route exact path="/" component={Background} />
+        </div>
+      </Router>
+    </Provider>
   );
 }
 
