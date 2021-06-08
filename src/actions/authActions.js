@@ -6,7 +6,7 @@ import {
   ERRORS,
   AUTH_ERROR,
 } from "./types";
-import { setAuthToken } from "../util/setAuthToken";
+import setAuthToken from "../util/setAuthToken";
 import { getServer } from "../util";
 
 //set user
@@ -31,11 +31,11 @@ export const setCurrentUser = (user) => async (dispatch) => {
 export const register = (userData) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-type": "application/jon",
+      "Content-Type": "application/jon",
     },
   };
   try {
-    const res = await axios.post(`${getServer}/api/users`, userData, config);
+    const res = await axios.post(`${getServer()}/api/users`, userData, config);
     dispatch({
       type: SUCCESSFUL_REGISTER,
       payload: res.data,
