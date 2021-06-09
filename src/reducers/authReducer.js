@@ -1,25 +1,25 @@
 import {
   SET_CURRENT_USER,
   SUCCESSFUL_REGISTER,
-  ERRORS,
   FAILURE_REGISTER,
+  ERRORS,
   AUTH_ERROR,
 } from "../actions/types";
 
 const initialState = {
-  isAutheticated: false,
-  user: {},
+  isAuthenticated: localStorage.getItem("token") ? true : false,
   token: localStorage.getItem("token"),
+  user: {},
   errors: [],
 };
 
-export default function authReducer(state = initialState, action) {
-  const { type, payload } = action;
-  switch (type) {
+export default function (state = initialState, action) {
+  const { payload } = action;
+  switch (action.type) {
     case SET_CURRENT_USER:
       return {
         ...state,
-        isAutheticated: true,
+        isAuthenticated: true,
         user: payload,
       };
     case SUCCESSFUL_REGISTER:
@@ -27,7 +27,7 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         ...payload,
-        isAutheticated: true,
+        isAuthenticated: true,
       };
     case FAILURE_REGISTER:
     case AUTH_ERROR:
@@ -35,10 +35,9 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         token: null,
-        isAutheticated: false,
+        isAuthenticated: false,
       };
     case ERRORS:
-      localStorage.removeItem("token");
       return {
         ...state,
         errors: payload,

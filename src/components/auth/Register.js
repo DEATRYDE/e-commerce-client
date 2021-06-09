@@ -17,6 +17,11 @@ class Register extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+  }
+
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -31,7 +36,7 @@ class Register extends Component {
     if (password === password2) {
       this.props.register(newUser);
     } else {
-      console.log("password dont match");
+      console.log("password must match");
     }
   }
 
