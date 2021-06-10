@@ -4,6 +4,8 @@ import {
   FAILURE_REGISTER,
   ERRORS,
   AUTH_ERROR,
+  SUCCESSFUL_LOGIN,
+  FAILURE_LOGIN,
 } from "../actions/types";
 
 const initialState = {
@@ -13,7 +15,7 @@ const initialState = {
   errors: [],
 };
 
-export default function (state = initialState, action) {
+export default function authReducer(state = initialState, action) {
   const { payload } = action;
   switch (action.type) {
     case SET_CURRENT_USER:
@@ -23,6 +25,7 @@ export default function (state = initialState, action) {
         user: payload,
       };
     case SUCCESSFUL_REGISTER:
+    case SUCCESSFUL_LOGIN:
       localStorage.setItem("token", payload.token);
       return {
         ...state,
@@ -30,6 +33,7 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
       };
     case FAILURE_REGISTER:
+    case FAILURE_LOGIN:
     case AUTH_ERROR:
       localStorage.removeItem("token");
       return {

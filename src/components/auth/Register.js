@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import Input from "../general/Input";
 import { register } from "../../actions/authActions";
+import { message } from "antd";
 
 class Register extends Component {
   constructor() {
@@ -19,7 +20,21 @@ class Register extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    console.log(nextProps.auth);
+    if (
+      nextProps &&
+      nextProps.auth.errors &&
+      nextProps.auth.errors.length > 0
+    ) {
+      nextProps.auth.errors.forEach((error) => {
+        message.error(error.msg);
+      });
+    }
+
+    if (nextProps.auth.isAuthenticated) {
+      message.success("Thank you for signing up");
+      setTimeout(() => this.props.history.push("/"), 3000);
+    }
   }
 
   onChange(e) {
@@ -27,11 +42,15 @@ class Register extends Component {
   }
 
   onSubmit() {
+    let role = this.props.location.search.split("?role=");
+    role = role[role.length - 1];
+    console.log(role);
     const { name, password, password2, email } = this.state;
     const newUser = {
       name,
       email,
       password,
+      role,
     };
     if (password === password2) {
       this.props.register(newUser);
