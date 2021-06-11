@@ -1,7 +1,7 @@
 import React from "react";
 import propTypes from "prop-types";
 
-const Input = ({ type, name, placeholder, value, onChange }) => {
+const Input = ({ type, name, placeholder, value, onChange, autoComplete }) => {
   return (
     <div>
       <div className="form-group">
@@ -11,6 +11,7 @@ const Input = ({ type, name, placeholder, value, onChange }) => {
           name={name}
           value={value}
           onChange={onChange}
+          autoComplete={autoComplete}
         />
       </div>
     </div>

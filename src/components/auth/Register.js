@@ -20,7 +20,7 @@ class Register extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log(nextProps.auth);
+    //console.log(nextProps.auth);
     if (
       nextProps &&
       nextProps.auth.errors &&
@@ -67,42 +67,43 @@ class Register extends Component {
         <p className="lead">
           <i className="fas fa-user"></i> Create your Account
         </p>
-        <div className="form">
+        <form className="form">
           <Input
             name="name"
             type="text"
             placeholder="Full Name"
+            autoComplete="on"
             value={name}
             onChange={this.onChange}
           />
-        </div>
-        <div className="form">
+
           <Input
             name="email"
             type="email"
             placeholder="Email Address"
+            autoComplete="on"
             value={email}
             onChange={this.onChange}
           />
-        </div>
-        <div className="form">
+
           <Input
             name="password"
             type="password"
             placeholder="Enter Password"
+            autoComplete="off"
             value={password}
             onChange={this.onChange}
           />
-        </div>
-        <div className="form">
+
           <Input
             name="password2"
             type="password"
             placeholder="Confirm Password"
+            autoComplete="off"
             value={password2}
             onChange={this.onChange}
           />
-        </div>
+        </form>
         <button className="btn btn-primary" onClick={this.onSubmit}>
           Register
         </button>

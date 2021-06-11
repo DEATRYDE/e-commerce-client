@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Input from "../general/Input";
-import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { message } from "antd";
+import { withRouter, Link } from "react-router-dom";
+import Input from "../general/Input";
 import { login } from "../../actions/authActions";
+import { message } from "antd";
 
 class Login extends Component {
   constructor() {
@@ -12,21 +12,22 @@ class Login extends Component {
       email: "",
       password: "",
     };
+
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-    // if (
-    //   nextProps &&
-    //   nextProps.auth.errors &&
-    //   nextProps.auth.errors.length > 0
-    // ) {
-    //   nextProps.auth.errors.forEach((error) => {
-    //     message.error(error.msg);
-    //   });
-    // }
+    console.log(nextProps.auth);
+    if (
+      nextProps &&
+      nextProps.auth.errors &&
+      nextProps.auth.errors.length > 0
+    ) {
+      nextProps.auth.errors.forEach((error) => {
+        message.error(error.msg);
+      });
+    }
 
     if (nextProps.isAuthenticated) {
       message.success("Successful Login");
@@ -38,7 +39,7 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  onSubmit(e) {
+  onSubmit() {
     const { email, password } = this.state;
     const user = {
       email,
@@ -54,24 +55,24 @@ class Login extends Component {
         <p className="lead">
           <i className="fas fa-user"></i> Login into you Account
         </p>
-        <div className="form">
+        <form className="form">
           <Input
             name="email"
             type="email"
             placeholder="Email Address"
+            autoComplete="on"
             value={this.state.email}
             onChange={this.onChange}
           />
-        </div>
-        <div className="form">
           <Input
             name="password"
             type="password"
             placeholder="Password"
+            autoComplete="off"
             value={this.state.password}
             onChange={this.onChange}
           />
-        </div>
+        </form>
         <button className="btn btn-primary" onClick={this.onSubmit}>
           Login
         </button>
@@ -85,6 +86,7 @@ class Login extends Component {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { login })(withRouter(Login));
