@@ -1,6 +1,6 @@
 import React from "react";
 
-const background = () => {
+const Background = () => {
   return (
     <section className="landing">
       <div className="dark-overlay">
@@ -15,4 +15,4 @@ const background = () => {
   );
 };
 
-export default background;
+export default Background;

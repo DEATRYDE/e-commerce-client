@@ -7,15 +7,13 @@ import "antd/dist/antd.css";
 import setAuthToken from "./util/setAuthToken";
 import { setCurrentUser } from "./actions/authActions";
 
-//importing general component
-import NavBar from "./components/general/NavBar";
-
 //landing component
-import Background from "./components/landing/background";
+import Landing from "./components/landing";
 
 //importing user components
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
+import Dashboard from "./components/dashboard";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -29,8 +27,8 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className="App">
-          <NavBar />
-          <Route exact path="/" component={Background} />
+          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/" component={Landing} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
         </div>
