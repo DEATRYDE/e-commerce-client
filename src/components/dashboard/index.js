@@ -48,6 +48,7 @@ class Dashboard extends Component {
   };
 
   render() {
+    const Child = this.state.child;
     const { user } = this.props.auth;
 
     return (
@@ -212,6 +213,7 @@ class Dashboard extends Component {
                   </li>
                 </ul>
               </nav>
+              <Child {...this.props} search={this.state.search} />
             </div>
 
             <footer className="sticky-footer bg-white">

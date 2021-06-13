@@ -13,16 +13,20 @@ import ProtectedRoute from "./components/general/ProtectedRoute";
 //landing component
 import Landing from "./components/landing";
 
+//dashboard component
+import Dashboard from "./components/dashboard";
+import Home from "./components/dashboard/components/Home";
+import AddProduct from "./components/dashboard/components/AddProduct";
+
 //importing user components
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
-import Dashboard from "./components/dashboard";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-function App() {
+function App(props) {
   useEffect(() => {
     store.dispatch(setCurrentUser());
   }, []);
@@ -32,7 +36,18 @@ function App() {
         <div className="App">
           <Route exact path="/" component={Landing} />
           <Switch>
-            <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+            <ProtectedRoute
+              exact
+              path="/dashboard"
+              component={() => <Dashboard {...props} nestedRoute={Home} />}
+            />
+            <ProtectedRoute
+              exact
+              path="/dashboard/addProduct"
+              component={() => (
+                <Dashboard {...props} nestedRoute={AddProduct} />
+              )}
+            />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
           </Switch>
