@@ -7,7 +7,10 @@ const NavBar = ({ auth: { isAuthenticated }, logout }) => {
   const user = (
     <ul>
       <li>
-        <Link to="/register?role=merchant">Merchants</Link>
+        <Link to="/dashboard">Dashboard</Link>
+      </li>
+      <li>
+        <Link to="/register?role=merchant">Become a Merchants</Link>
       </li>
       <li>
         <Link onClick={logout} to="#">
