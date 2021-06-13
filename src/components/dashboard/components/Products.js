@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Product from "../../general/Product";
 
 class Products extends Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class Products extends Component {
     };
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (
       nextProps &&
       nextProps.products &&
@@ -31,19 +32,18 @@ class Products extends Component {
   render() {
     const { merchantProducts } = this.state;
     return (
-      <div style={{ textAlign: "center" }}>
+      <div className="row">
         <h1>Products</h1>
-        {merchantProducts.map(
-          (product, index) => console.log(product)
-          //   <Product
-          //     key={index}
-          //     product={product}
-          //     description={this.productDetails(product)}
-          //     uploadImages={`/dashboard/products/${product._id}/addImages`}
-          //     thumbnail={product.thumbnail}
-          //     showBtn={true}
-          //   />
-        )}
+        {merchantProducts.map((product, index) => (
+          <Product
+            key={index}
+            product={product}
+            description={this.productDetails(product)}
+            uploadImages={`/dashboard/products/${product._id}/addImages`}
+            thumbnail={product.thumbnail}
+            showBtn={true}
+          />
+        ))}
       </div>
     );
   }
