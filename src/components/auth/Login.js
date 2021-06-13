@@ -18,7 +18,7 @@ class Login extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log(nextProps.auth);
+    //console.log(nextProps.auth);
     if (
       nextProps &&
       nextProps.auth.errors &&
