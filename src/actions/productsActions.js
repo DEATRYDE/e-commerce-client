@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ERRORS, GET_PRODUCTS, PRODUCT_ERROR } from "./types";
+import { GET_PRODUCTS, PRODUCT_ERROR } from "./types";
 import { getServer } from "../util";
 
 export const getProducts = () => async (dispatch) => {
@@ -13,6 +13,24 @@ export const getProducts = () => async (dispatch) => {
     dispatch({
       type: PRODUCT_ERROR,
       payload: { status: err.response.status },
+    });
+  }
+};
+
+export const addProduct = (productData, history) => async (dispatch) => {
+  const config = {
+    Headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  try {
+    await axios
+      .post(`${getServer()}/api/products`, productData, config)
+      .then(() => history.push("/dashboard/products"));
+  } catch (err) {
+    dispatch({
+      type: PRODUCT_ERROR,
+      payload: { status: err.response },
     });
   }
 };

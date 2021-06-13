@@ -3,6 +3,7 @@ import Input from "../../general/Input";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { message } from "antd";
+import { addProduct } from "../../../actions/productsActions";
 
 class AddProduct extends Component {
   constructor(props) {
@@ -31,13 +32,23 @@ class AddProduct extends Component {
       quantity,
       category,
     };
-    console.log(newProduct);
+    //console.log(newProduct);
     if (name.length <= 0) {
-      return message.error("name field is required");
+      return message.error("Name is required");
     }
     if (description.length <= 0) {
-      return message.error("description field is required");
+      return message.error("Description is required");
     }
+    if (price.length <= 0) {
+      return message.error("Product price can not be empty");
+    }
+    if (quantity.length <= 0) {
+      return message.error("Quantity is required");
+    }
+    if (category.length <= 0) {
+      return message.error("No category is selected");
+    }
+    this.props.addProduct(newProduct, this.props.history);
   };
   render() {
     const { name, description, price, brand, quantity, category } = this.state;
@@ -111,4 +122,4 @@ const mapStateToProps = (state) => ({
   products: state.products,
 });
 
-export default connect(mapStateToProps)(withRouter(AddProduct));
+export default connect(mapStateToProps, { addProduct })(withRouter(AddProduct));

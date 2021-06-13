@@ -9,7 +9,7 @@ class Products extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (
       nextProps &&
       nextProps.products &&
