@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Product from "../../general/Product";
+import { getProducts } from "../../../actions/productsActions";
+import { decodeUser } from "../../../util";
 
 class Products extends Component {
   constructor(props) {
@@ -10,13 +12,21 @@ class Products extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidMount() {
+    this.props.getProducts();
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (
       nextProps &&
       nextProps.products &&
       nextProps.products.products.length > 0
     ) {
-      const merchantProducts = nextProps.products.products;
+      const userId = decodeUser().user.id;
+      let merchantProducts = [];
+      merchantProducts = nextProps.products.products.filter(
+        (product) => product.userId === userId
+      );
       this.setState({ merchantProducts });
     }
   }
@@ -33,15 +43,12 @@ class Products extends Component {
     const { merchantProducts } = this.state;
     return (
       <div className="row">
-        <h1>Products</h1>
         {merchantProducts.map((product, index) => (
           <Product
             key={index}
             product={product}
             description={this.productDetails(product)}
-            uploadImages={`/dashboard/products/${product._id}/addImages`}
-            thumbnail={product.thumbnail}
-            showBtn={true}
+            buttonName="Add Image"
           />
         ))}
       </div>
@@ -52,4 +59,4 @@ class Products extends Component {
 const mapStateToProps = (state) => ({
   products: state.products,
 });
-export default connect(mapStateToProps)(Products);
+export default connect(mapStateToProps, { getProducts })(Products);

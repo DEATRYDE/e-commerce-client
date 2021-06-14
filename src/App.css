@@ -365,7 +365,8 @@ button {
 .landing {
   margin-top: 6.3%;
   position: relative;
-  /* background: url("/assets/images/eshop.jpg") no-repeat center center/cover; */
+  background: url("https://images.pexels.com/photos/285171/pexels-photo-285171.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
+    no-repeat center center/cover;
   height: 60vh;
 }
 
