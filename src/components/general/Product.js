@@ -29,7 +29,7 @@ const Product = ({ product, description, buttonName }) => {
 
 Product.propTypes = {
   product: propTypes.object.isRequired,
-  description: propTypes.func.isRequired,
+  description: propTypes.object.isRequired,
   buttonName: propTypes.string,
 };
 

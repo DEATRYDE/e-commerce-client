@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { getInstructorProducts } from "../../../actions/productsActions";
 import Product from "../../general/Product";
-import { getProducts } from "../../../actions/productsActions";
 import { decodeUser } from "../../../util";
 
 class Products extends Component {
@@ -13,7 +13,7 @@ class Products extends Component {
   }
 
   componentDidMount() {
-    this.props.getProducts();
+    this.props.getInstructorProducts(decodeUser().user.id);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -22,11 +22,7 @@ class Products extends Component {
       nextProps.products &&
       nextProps.products.products.length > 0
     ) {
-      const userId = decodeUser().user.id;
-      let merchantProducts = [];
-      merchantProducts = nextProps.products.products.filter(
-        (product) => product.userId === userId
-      );
+      const merchantProducts = nextProps.products.products;
       this.setState({ merchantProducts });
     }
   }
@@ -59,4 +55,4 @@ class Products extends Component {
 const mapStateToProps = (state) => ({
   products: state.products,
 });
-export default connect(mapStateToProps, { getProducts })(Products);
+export default connect(mapStateToProps, { getInstructorProducts })(Products);

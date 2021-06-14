@@ -1,4 +1,4 @@
-import { GET_PRODUCTS, PRODUCT_ERROR } from "../actions/types";
+import { GET_PRODUCT, GET_PRODUCTS, PRODUCT_ERROR } from "../actions/types";
 
 const initialState = {
   products: [],
@@ -13,6 +13,11 @@ export default function productsReducer(state = initialState, action) {
       return {
         ...state,
         products: payload,
+      };
+    case GET_PRODUCT:
+      return {
+        ...state,
+        product: payload,
       };
     case PRODUCT_ERROR:
       return {
