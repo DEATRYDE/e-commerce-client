@@ -18,6 +18,8 @@ import Dashboard from "./components/dashboard";
 import Home from "./components/dashboard/components/Home";
 import AddProduct from "./components/dashboard/components/AddProduct";
 import Products from "./components/dashboard/components/Products";
+import AddProfile from "./components/dashboard/components/AddProfile";
+import Profile from "./components/dashboard/components/Profile";
 
 //importing user components
 import Register from "./components/auth/Register";
@@ -53,6 +55,18 @@ function App(props) {
               exact
               path="/dashboard/Products"
               component={() => <Dashboard {...props} nestedRoute={Products} />}
+            />
+            <ProtectedRoute
+              exact
+              path="/dashboard/Profile"
+              component={() => <Dashboard {...props} nestedRoute={Profile} />}
+            />
+            <ProtectedRoute
+              exact
+              path="/dashboard/addProfile"
+              component={() => (
+                <Dashboard {...props} nestedRoute={AddProfile} />
+              )}
             />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
