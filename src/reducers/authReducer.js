@@ -34,8 +34,8 @@ export default function authReducer(state = initialState, action) {
         isAuthenticated: true,
       };
     case FAILURE_REGISTER:
-    case FAILURE_LOGIN:
     case AUTH_ERROR:
+    case FAILURE_LOGIN:
     case LOGOUT:
       localStorage.removeItem("token");
       return {

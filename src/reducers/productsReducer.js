@@ -1,9 +1,8 @@
 import { GET_PRODUCT, GET_PRODUCTS, PRODUCT_ERROR } from "../actions/types";
-
 const initialState = {
   products: [],
   product: {},
-  error: {},
+  errors: {},
 };
 
 export default function productsReducer(state = initialState, action) {
