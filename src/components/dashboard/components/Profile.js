@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import {
   getProfile,
   createProfile,
+  deleteAccount,
 } from "../../../actions/profileActions";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
@@ -51,7 +52,6 @@ class Profile extends Component {
   };
 
   handleOk = (e) => {
-    console.log(e);
     this.setState({
       visible: false,
     });
@@ -121,7 +121,7 @@ class Profile extends Component {
             Edit Profile
           </button>
           <Popconfirm
-            title="This will delete all your records with eShop. Do yuo want to proceed?"
+            title="This will delete all your records with eShop. Do you want to proceed?"
             onConfirm={this.confirm}
             onCancel={this.cancel}
             okText="Yes"
@@ -184,7 +184,7 @@ class Profile extends Component {
           </Fragment>
         )}
         <Modal
-          title="Basic Modal"
+          title="Edit Profile"
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -301,4 +301,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getProfile,
   createProfile,
+  deleteAccount,
 })(withRouter(Profile));

@@ -25,7 +25,7 @@ export const createProfile = (profileData, history) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    const res = await axios.get(
+    const res = await axios.post(
       `${getServer()}/api/profile`,
       profileData,
       config
@@ -47,5 +47,20 @@ export const createProfile = (profileData, history) => async (dispatch) => {
         payload: { msg: err.response.statusType },
       });
     }
+  }
+};
+
+export const deleteAccount = (history) => async (dispatch) => {
+  try {
+    axios.delete(`${getServer()}/api/profile`).then(() => {
+      localStorage.removeItem("token");
+      history.push("/");
+      window.location.reload();
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusType },
+    });
   }
 };
