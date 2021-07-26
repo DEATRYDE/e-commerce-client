@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 
 const { Meta } = Card;
 
-const Product = ({ product, description, buttonName }) => {
+const Product = ({ product, description, buttonName, link }) => {
   return (
     <div style={{ padding: "10px" }}>
-      <Link to="#">
+      <Link to={link}>
         <Card
           hoverable
           style={{ width: 300 }}

@@ -12,6 +12,7 @@ import ProtectedRoute from "./components/general/ProtectedRoute";
 
 //landing component
 import Landing from "./components/landing";
+import ProductDetails from "./components/landing/ProductDetails";
 
 //dashboard component
 import Dashboard from "./components/dashboard";
@@ -38,6 +39,7 @@ function App(props) {
       <Router>
         <div className="App">
           <Route exact path="/" component={Landing} />
+          <Route exact path="/products/:id" component={ProductDetails} />
           <Switch>
             <ProtectedRoute
               exact
