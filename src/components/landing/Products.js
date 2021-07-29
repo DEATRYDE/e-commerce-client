@@ -43,7 +43,6 @@ class Products extends Component {
               link={`products/${product._id}`}
               product={product}
               description={this.productDetails(product)}
-              buttonName="Add to Cart"
             />
           ))}
         </div>

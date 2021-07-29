@@ -1,14 +1,16 @@
 import React, { Component, Fragment } from "react";
 import { getProduct } from "../../actions/productsActions";
 import { connect } from "react-redux";
-import { Spin, Space, Button, Rate } from "antd";
+import { Spin, Space, Button, Rate, Modal, Alert } from "antd";
 import NavBar from "../general/NavBar";
+import { Link } from "react-router-dom";
 
 class ProductDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
       product: null,
+      visible: false,
     };
   }
 
@@ -23,6 +25,63 @@ class ProductDetails extends Component {
       this.setState({ product });
     }
   }
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  handleOk = (e) => {
+    console.log(e);
+    this.setState({
+      visible: false,
+    });
+  };
+
+  handleCancel = (e) => {
+    console.log(e);
+    this.setState({
+      visible: false,
+    });
+  };
+
+  registerModal = (product) => {
+    return (
+      <Modal
+        visible={this.state.visible}
+        onOk={this.handleOk}
+        onCancel={this.handleCancel}
+        footer={[
+          <Button key="back" onClick={this.handleCancel}>
+            Close
+          </Button>,
+        ]}
+      >
+        <div>
+          <br />
+          <Alert
+            message={
+              <center>
+                <span>
+                  <strong>Added</strong> {product.name} to Cart
+                </span>
+              </center>
+            }
+            type="success"
+          />
+          <br />
+          <center>
+            <Link to="/cart?redirect=/cart">
+              <Button key="submit" type="primary">
+                Go to Cart
+              </Button>
+            </Link>
+          </center>
+        </div>
+      </Modal>
+    );
+  };
 
   render() {
     const { product } = this.state;
@@ -65,7 +124,9 @@ class ProductDetails extends Component {
                     Quantity: {product.quantity}
                   </p>
                   <h1>${product.price}</h1>
-                  <Button type="primary"> Add to Cart</Button>
+                  <Button type="primary" onClick={this.showModal}>
+                    Add to Cart
+                  </Button>
                 </div>
               </div>
               <br />
@@ -96,6 +157,7 @@ class ProductDetails extends Component {
             </Space>
           )}
         </div>
+        {product && this.registerModal(product)}
       </Fragment>
     );
   }
