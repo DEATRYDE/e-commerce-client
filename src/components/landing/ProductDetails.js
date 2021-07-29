@@ -4,6 +4,9 @@ import { connect } from "react-redux";
 import { Spin, Space, Button, Rate, Modal, Alert } from "antd";
 import NavBar from "../general/NavBar";
 import { Link } from "react-router-dom";
+import { isEmpty } from "lodash";
+import { decodeUser } from "../../util";
+import { addToCart } from "../../actions/cartActions";
 
 class ProductDetails extends Component {
   constructor(props) {
@@ -83,6 +86,28 @@ class ProductDetails extends Component {
     );
   };
 
+  async addProductToCart(product) {
+    //check id user is signed in
+    //if not use localstorage
+    if (!localStorage.getItem("token")) {
+      const productExists = !isEmpty(localStorage.getItem("products"));
+      if (productExists) {
+        const products = JSON.parse(localStorage.getItem("products"));
+        products.push(product._id);
+        this.showModal();
+        return localStorage.setItem("products", JSON.stringify([product._id]));
+      } else {
+        this.showModal();
+        return localStorage.setItem("products", JSON.stringify([product._id]));
+      }
+    }
+
+    const userId = decodeUser().user.id;
+    const context = { products: [product._id], userId };
+    await this.props.addToCart(context);
+    this.showModal();
+  }
+
   render() {
     const { product } = this.state;
     return (
@@ -124,7 +149,10 @@ class ProductDetails extends Component {
                     Quantity: {product.quantity}
                   </p>
                   <h1>${product.price}</h1>
-                  <Button type="primary" onClick={this.showModal}>
+                  <Button
+                    type="primary"
+                    onClick={(_) => this.addProductToCart(product)}
+                  >
                     Add to Cart
                   </Button>
                 </div>
@@ -169,4 +197,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getProduct,
+  addToCart,
 })(ProductDetails);

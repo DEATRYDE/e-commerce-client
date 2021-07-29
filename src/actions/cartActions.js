@@ -9,7 +9,7 @@ export const addToCart = (context) => (dispatch) => {
     },
   };
   return axios
-    .post(`${getServer}/api/cart`, context, config)
+    .post(`${getServer()}/api/cart`, context, config)
     .then((res) => {
       dispatch({
         type: GET_CART,
@@ -26,7 +26,7 @@ export const addToCart = (context) => (dispatch) => {
 
 export const getCart = () => (dispatch) => {
   axios
-    .get(`${getServer}/api/cart`)
+    .get(`${getServer()}/api/cart`)
     .then((res) => {
       dispatch({
         type: GET_CART,
@@ -49,7 +49,7 @@ export const removeFromCart = (context) => (dispatch) => {
   };
   const { id } = context;
   return axios
-    .put(`${getServer}/api/cart/${id}`, context, config)
+    .put(`${getServer()}/api/cart/${id}`, context, config)
     .then((res) => {
       dispatch({
         type: GET_CART,

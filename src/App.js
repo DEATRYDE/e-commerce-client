@@ -5,7 +5,9 @@ import "./App.css";
 import store from "./store";
 import "antd/dist/antd.css";
 import setAuthToken from "./util/setAuthToken";
+import { decodeUser } from "./util";
 import { setCurrentUser } from "./actions/authActions";
+import { addToCart } from "./actions/cartActions";
 
 //importing general components
 import ProtectedRoute from "./components/general/ProtectedRoute";
@@ -34,6 +36,18 @@ function App(props) {
   useEffect(() => {
     store.dispatch(setCurrentUser());
   }, []);
+
+  const grabProductFromStorage = () => {
+    const userId = decodeUser().user.id;
+    const cartProducts = JSON.parse(localStorage.getItem("products"));
+    const context = { products: cartProducts, userId };
+    store.dispatch(addToCart(context));
+    localStorage.removeItem("products");
+  };
+  if (localStorage.getItem("token") && localStorage.getItem("products")) {
+    grabProductFromStorage();
+  }
+
   return (
     <Provider store={store}>
       <Router>
