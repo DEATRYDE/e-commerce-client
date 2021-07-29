@@ -11,3 +11,4 @@ export const LOGOUT = "LOGOUT";
 export const PRODUCT_ERROR = "PRODUCT_ERROR";
 export const GET_PROFILE = "GET_PROFILE";
 export const PROFILE_ERROR = "PROFILE_ERROR";
+export const GET_CART = "GET_CART";
