@@ -11,7 +11,7 @@ export default function cartReducer(state = initialState, action) {
     case GET_CART:
       return {
         ...state,
-        cart: payload.cart,
+        cart: payload.result,
       };
     case ERRORS:
       return {

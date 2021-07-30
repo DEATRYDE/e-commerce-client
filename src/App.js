@@ -28,6 +28,9 @@ import Profile from "./components/dashboard/components/Profile";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 
+//customer components
+import Cart from "./components/customers/Cart";
+
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
@@ -84,6 +87,7 @@ function App(props) {
                 <Dashboard {...props} nestedRoute={AddProfile} />
               )}
             />
+            <ProtectedRoute exact path="/cart" component={Cart} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
           </Switch>

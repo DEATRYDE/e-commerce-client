@@ -4,6 +4,8 @@ import { withRouter, Link } from "react-router-dom";
 import Input from "../general/Input";
 import { login } from "../../actions/authActions";
 import { message } from "antd";
+import { decodeUser } from "../../util";
+import { addToCart } from "../../actions/cartActions";
 
 class Login extends Component {
   constructor() {
@@ -18,7 +20,11 @@ class Login extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    //console.log(nextProps.auth);
+    const search = this.props.location.search;
+    let split = search.split("redirect=");
+    const hasRedirect = search.includes("redirect=");
+    split = split[split.length - 1];
+
     if (
       nextProps &&
       nextProps.auth.errors &&
@@ -30,8 +36,22 @@ class Login extends Component {
     }
 
     if (nextProps.isAuthenticated) {
-      message.success("Successful Login");
-      setTimeout(() => this.props.history.push("/"), 3000);
+      if (split && hasRedirect) {
+        if (
+          split === "/cart" &&
+          localStorage.getItem("token" && localStorage.getItem("products"))
+        ) {
+          const userId = decodeUser().user.id;
+          const cartProducts = JSON.parse(localStorage.getItem("products"));
+          const context = { products: cartProducts, userId };
+          this.props.addToCart(context);
+          localStorage.removeItem("products");
+        }
+        this.props.history.push(split);
+      } else {
+        message.success("Successful Login");
+        setTimeout(() => this.props.history.push("/"), 3000);
+      }
     }
   }
 
@@ -49,6 +69,10 @@ class Login extends Component {
   }
 
   render() {
+    const search = this.props.location.search;
+    const split = search.split("redirect=");
+    const redirect = split[split.length - 1];
+    const hasRedirect = redirect.length > 0 && search.includes("redirect");
     return (
       <div className="container">
         <h1 className="large text-primary">Login</h1>
@@ -77,7 +101,14 @@ class Login extends Component {
           Login
         </button>
         <p className="my-1">
-          Dont Have an Account? <Link to="/register">Create Account</Link>
+          Dont Have an Account?{" "}
+          <Link
+            to={`/register?role=customer${
+              hasRedirect ? "&redirect=" + redirect : ""
+            } `}
+          >
+            Create Account
+          </Link>
         </p>
       </div>
     );
@@ -89,4 +120,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { login })(withRouter(Login));
+export default connect(mapStateToProps, { login, addToCart })(
+  withRouter(Login)
+);

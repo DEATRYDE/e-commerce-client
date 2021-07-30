@@ -4,6 +4,8 @@ import { withRouter } from "react-router-dom";
 import Input from "../general/Input";
 import { register } from "../../actions/authActions";
 import { message } from "antd";
+import { decodeUser } from "../../util";
+import { addToCart } from "../../actions/cartActions";
 
 class Register extends Component {
   constructor() {
@@ -20,7 +22,10 @@ class Register extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    //console.log(nextProps.auth);
+    const search = this.props.location.search;
+    let split = search.split("redirect=");
+    const hasRedirect = search.includes("redirect=");
+    split = split[split.length - 1];
     if (
       nextProps &&
       nextProps.auth.errors &&
@@ -32,8 +37,22 @@ class Register extends Component {
     }
 
     if (nextProps.auth.isAuthenticated) {
-      message.success("Thank you for signing up");
-      setTimeout(() => this.props.history.push("/"), 3000);
+      if (split && hasRedirect) {
+        if (
+          split === "/cart" &&
+          localStorage.getItem("token" && localStorage.getItem("products"))
+        ) {
+          const userId = decodeUser().user.id;
+          const cartProducts = JSON.parse(localStorage.getItem("products"));
+          const context = { products: cartProducts, userId };
+          this.props.addToCart(context);
+          localStorage.removeItem("products");
+        }
+        this.props.history.push(split);
+      } else {
+        message.success("Thank you for signing up");
+        setTimeout(() => this.props.history.push("/"), 3000);
+      }
     }
   }
 
@@ -42,9 +61,10 @@ class Register extends Component {
   }
 
   onSubmit() {
-    let role = this.props.location.search.split("?role=");
-    role = role[role.length - 1];
-    console.log(role);
+    let split = this.props.location.search.split("?role=");
+    split = split[split.length - 1].split("&");
+    const role = split[0];
+
     const { name, password, password2, email } = this.state;
     const newUser = {
       name,
@@ -116,4 +136,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { register })(withRouter(Register));
+export default connect(mapStateToProps, { register, addToCart })(
+  withRouter(Register)
+);

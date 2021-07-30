@@ -13,9 +13,14 @@ const NavBar = ({ auth: { isAuthenticated }, logout }) => {
         <Link to="/register?role=merchant">Become a Merchants</Link>
       </li>
       <li>
+        <Link to="/cart">
+          <i className="fas fa-cart-plus"> Cart</i>
+        </Link>
+      </li>
+      <li>
         <Link onClick={logout} to="#">
           <i className="fas fa-sign-out-alt"></i>
-          <span className="hide-on-mobile">Logout</span>
+          <span className="hide-on-mobile"> Logout</span>
         </Link>
       </li>
     </ul>
