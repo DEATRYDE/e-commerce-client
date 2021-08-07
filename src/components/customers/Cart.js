@@ -5,6 +5,7 @@ import { isEmpty } from "lodash";
 import { Empty, List, Skeleton, Avatar } from "antd";
 import { getCart, removeFromCart } from "../../actions/cartActions";
 import Navbar from "../general/NavBar";
+import Payment from "../customers/Payment";
 
 class Cart extends Component {
   constructor(props) {
@@ -111,7 +112,7 @@ class Cart extends Component {
                 <br />
                 <br />
                 <h4>{`Total: $ ${this.calculateTotal()}`}</h4>
-                <button className="btn btn-primary">Check Out</button>
+                <Payment cart={cart} total={this.calculateTotal()} />
               </div>
               <div style={{ textAlign: "center" }}>
                 {cart.products && (
