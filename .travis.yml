@@ -7,3 +7,9 @@ before_install:
 
 script:
   - docker run -e CI=true rahuldogra/client npm test -- --coverage
+
+after_success:
+  #build production grade dockerfile
+  - docker build -t rahuldogra/client .
+  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_ID" --password-stdin
+  - docker push rahuldogra/client
