@@ -6,8 +6,9 @@ services:
 before_install:
   - docker build -t rahuldogra/client -f Dockerfile.dev .
 
-# script:
-#   - docker run -e CI=true rahuldogra/client npm test -- --coverage
+script:
+  - docker run -e CI=true rahuldogra/client
+  # npm test -- --coverage
 
 after_success:
   #build production grade dockerfile
