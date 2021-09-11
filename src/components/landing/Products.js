@@ -36,7 +36,7 @@ class Products extends Component {
     // console.log(products);
     return (
       <div className="container">
-        <div className="row">
+        <div className="row" style={{ justifyContent: "space-around" }}>
           {products.map((product, index) => (
             <Product
               key={index}

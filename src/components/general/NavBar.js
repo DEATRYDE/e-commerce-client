@@ -5,7 +5,7 @@ import { logout } from "../../actions/authActions";
 
 const NavBar = ({ auth: { isAuthenticated }, logout }) => {
   const user = (
-    <ul>
+    <ul className="lead">
       <li>
         <Link to="/dashboard">Dashboard</Link>
       </li>
@@ -17,24 +17,24 @@ const NavBar = ({ auth: { isAuthenticated }, logout }) => {
           <i className="fas fa-cart-plus"> Cart</i>
         </Link>
       </li>
-      <li>
+      <li className="highlight">
         <Link onClick={logout} to="#">
           <i className="fas fa-sign-out-alt"></i>
-          <span className="hide-on-mobile"> Logout</span>
+          <span className="hide-on-mobile">Logout</span>
         </Link>
       </li>
     </ul>
   );
 
   const guest = (
-    <ul>
+    <ul className="lead">
       <li>
         <Link to="/register?role=merchant">Merchants</Link>
       </li>
       <li>
         <Link to="/register?role=customer">Register</Link>
       </li>
-      <li>
+      <li className="highlight">
         <Link to="/login">Login</Link>
       </li>
     </ul>
@@ -42,10 +42,8 @@ const NavBar = ({ auth: { isAuthenticated }, logout }) => {
 
   return (
     <nav className="main-navbar bg-main">
-      <h1>
-        <Link to="">
-          <i className="fas fa-store"></i>e-shop
-        </Link>
+      <h1 className="playguard">
+        <Link to="">Player Raid</Link>
       </h1>
       {isAuthenticated ? user : guest}
     </nav>

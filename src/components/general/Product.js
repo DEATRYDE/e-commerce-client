@@ -11,11 +11,11 @@ const Product = ({ product, description, buttonName, link }) => {
       <Link to={link}>
         <Card
           hoverable
-          style={{ width: 300 }}
+          style={{ maxWidth: 330 }}
           cover={
             <img
               alt="example"
-              src="https://images.unsplash.com/photo-1487260211189-670c54da558d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+              src="https://upload.wikimedia.org/wikipedia/ru/8/8e/%D0%9E%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0_Dota_2.jpg"
             />
           }
         >

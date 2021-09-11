@@ -62,8 +62,8 @@ class Dashboard extends Component {
               className="sidebar-brand d-flex align-items-center justify-content-center"
               to="/"
             >
-              <div className="sidebar-brand-text mx-3">
-                <i className="fas fa-store"></i> e-Shop
+              <div className="sidebar-brand-text mx-3 playguard">
+                Player Raid
               </div>
             </Link>
 

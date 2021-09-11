@@ -101,7 +101,7 @@ class Login extends Component {
           Login
         </button>
         <p className="my-1">
-          Dont Have an Account?{" "}
+          Dont Have an Account?
           <Link
             to={`/register?role=customer${
               hasRedirect ? "&redirect=" + redirect : ""

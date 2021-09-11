@@ -1,8 +1,6 @@
-import React from "react";
-
 const Background = () => {
   return (
-    <section className="landing">
+    <section className="landing playguard">
       <div className="dark-overlay">
         <div className="landing-inner">
           <h1 className="x-large" style={{ color: "white" }}>
